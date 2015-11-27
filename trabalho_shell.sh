@@ -3,7 +3,7 @@ while [ 1 == 1 ]
 do
 echo "################################################################################"
 echo "#                                                                              #"
-echo "# UNIGRANRIO - Universidade do Grande Rio                                      #" 
+echo "# UNIGRANRIO - Universidade do Grande Rio                                      #"
 echo "# Sistemas Operacionais Abertos                             Semestre 2 de 2015 #"
 echo "#------------------------------------------------------------------------------#"
 echo "# Professor: Luiz Fernando T. de Farias                    Turma: EIN 359-01/1 #"
@@ -17,7 +17,7 @@ echo "# Rio de Janeiro, `date +%d` de `date +%B` de `date +%Y`                  
 echo "# Hora do sistema: `date +%H` Horas e `date +%M` MInutos                                       #"
 echo "#------------------------------------------------------------------------------#"
 echo "# Selecione a Opção Desejada                                                   #"
-echo "# 1)Criar Uma Pasta                                                            #"                                                                         
+echo "# 1)Criar Uma Pasta                                                            #"
 echo "# 2)Excluir uma Pasta                                                          #"
 echo "# 3)Criar um Arquivo                                                           #"
 echo "# 4)Editar um Arquivo                                                          #"
@@ -31,34 +31,53 @@ echo "##########################################################################
 read op
 case $op in
 	1) echo "Criar uma Pasta"
-	echo "Digite o nome desejado para a pasta"
-	read name
-	mkdir -p $name
-    echo "Deseja visualizar o local onde a sua pasta foi criada(S/N) ?"
-    read confirm
-    if [ $confirm = "S" ] || [ $confirm = "s" ];
-        then
-        ls
-        echo "Aperte qualquer tecla para continuar"
-        read con
-        fi
+	echo "Deseja realmente criar uma pasta ?(S/N) ?"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+			then
+			echo "Digite o nome desejado para a pasta"
+			read name
+			mkdir -p $name
+		  echo "Deseja visualizar o local onde a sua pasta foi criada(S/N) ?"
+		  read confirm
+		  if [ $confirm = "S" ] || [ $confirm = "s" ];
+		        then
+		        ls
+		        echo "Aperte qualquer tecla para continuar"
+		        read con
+		  fi
+	fi
 	clear;;
-	
+
 	2)echo "Excluir uma Pasta"
-	echo "Digite o nome da Pasta que desejas excluir"
-	read name
-	rm -r ./$name
-    echo "Deseja visualizar o local onde a sua pasta estava(S/N) ?"
-    read confirm
-    if [ $confirm = "S" ] || [ $confirm = "s" ];
-        then
-        ls
-        echo "Aperte qualquer tecla para continuar"
-        read con
-        fi
+	echo "Deseja realmente excluir uma pasta?(S/N)"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+			then
+			echo "Digite o nome da Pasta que desejas excluir"
+			read name
+			echo "Deseja realmente excluir a pasta $name ?(S/N)"
+			read confirm
+			if [ $confirm = "S" ] || [ $confirm = "s" ];
+		  	then
+				rm -r ./$name
+			fi
+		  echo "Deseja visualizar o local onde a sua pasta estava(S/N) ?"
+		  read confirm
+		  if [ $confirm = "S" ] || [ $confirm = "s" ];
+		        then
+		        ls
+		        echo "Aperte qualquer tecla para continuar"
+		        read con
+		  fi
+	fi
 	clear;;
-	
+
 	3)echo "Criar um Arquivo"
+	echo "Deseja realmente criar um arquivo?(S/N)"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+			then
 	echo "Digite o nome do Arquivo que desejas criar"
 	read name
 	touch $name
@@ -70,36 +89,73 @@ case $op in
         echo "Aperte qualquer tecla para continuar"
         read con
         fi
+		fi
 	clear;;
-	
+
 	4)echo "Editar um Arquivo"
 	echo "Digite o arquivo que desejas editar"
 	read name
 	vi $name
 	clear;;
-	
+
 	5)echo "Remover um Arquivo"
-	echo "Digite o nome do arquivo que desejas remover"
-	read name
-	rm $name
+	echo "Deseja realmente excluir um arquivo?(S/N)"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+		then
+		echo "Digite o nome do arquivo que desejas remover"
+		read name
+		echo "Deseja realmente excluir a pastao arquivo $name ?(S/N)"
+		read confirm
+		if [ $confirm = "S" ] || [ $confirm = "s" ];
+			then
+			rm $name
+		fi
     echo "O arquivo $name foi removido"
-    echo "Aperte qualquer tecla para continuar"
-    read con
+		echo "Deseja visualizar o local onde o seu arquivo estava(S/N) ?"
+		read confirm
+		if [ $confirm = "S" ] || [ $confirm = "s" ];
+				then
+				ls
+				echo "Aperte qualquer tecla para continuar"
+				read con
+				fi
+	fi
 	clear;;
-	
+
 	6)echo "Listar um Diretório"
+	echo "Deseja realmente listar um diretório?(S/N)"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+		then
+	echo "Você está na pasta"
+	pwd
+	echo "Deseja ir para a pasta de trabalho?(S/N)?"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+		then
+		cd ~
+	fi
+	echo "Deseja listar o diretório atual(S/N)?"
+	read confirm
+	if [ $confirm = "S" ] || [ $confirm = "s" ];
+		then
+		ls
+	fi
 	echo "Digite o nome do diretório que desejas listar"
 	read name
 	ls $name
 	echo "Aperte qualquer tecla para continuar"
     read con
+	fi
 	clear;;
-	
+
     7)echo "Abrir o Gerenciador de Tarefas"
-    echo "Para sair do Gerenciador de Tarefas pressione Q"    
+    echo "Para sair do Gerenciador de Tarefas pressione Q"
     sleep 5
     top
-    clear;;	
+    clear;;
+
     8)echo "Você deseja realmente sair(S/N)?"
 	read confirm
 	if [ $confirm = "S" ] ||[ $confirm = "s" ];
@@ -110,7 +166,7 @@ case $op in
 			exit;
 	fi;;
 	*)echo "Oops, a opção digitada é incorreta"
-      sleep 2      
+      sleep 2
       clear;;
 esac
 done
